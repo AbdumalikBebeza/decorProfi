@@ -8,5 +8,5 @@ from .serializers import ProductSerializer
 def products_view(request):
     if request.method == 'GET':
         products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
+        serializer = ProductSerializer(products, many=True, context={"request": request})
         return response.Response(data=serializer.data, status=status.HTTP_200_OK)

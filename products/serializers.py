@@ -5,14 +5,28 @@ from .models import Product
 class ProductSerializer(serializers.ModelSerializer):
     catalog_name = serializers.SerializerMethodField()
     brand_name = serializers.SerializerMethodField()
+    sub_catalog_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = "name articul model catalog brand description color image1 image2 image3" \
-                 " image4 information price catalog_name brand_name".split()
+        fields = "id name articul model catalog brand sub_catalog description color image1 image2 image3" \
+                 " image4 information price catalog_name brand_name sub_catalog_name".split()
 
     def get_catalog_name(self, product):
         return product.catalog_name
 
     def get_brand_name(self, product):
         return product.brand_name
+
+    def get_sub_catalog_name(self, product):
+        return product.sub_catalog_name
+
+
+    # def to_representation(self, instance):
+    #     data = super().to_representation(instance)
+    #     request = self.context.get("request")
+    #     data['image1'] = request.build_absolute_uri(instance.image1)
+    #     data['image2'] = request.build_absolute_uri(instance.image2)
+    #     data['image3'] = request.build_absolute_uri(instance.image3)
+    #     data['image4'] = request.build_absolute_uri(instance.image4)
+    #     return data
