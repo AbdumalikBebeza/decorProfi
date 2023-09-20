@@ -3,7 +3,8 @@ from django_resized import ResizedImageField
 
 
 class Catalog(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name='Название категории')
+    image = models.ImageField(verbose_name='Фотография (обязательно)')
 
     def __str__(self):
         return self.name
@@ -14,7 +15,7 @@ class Catalog(models.Model):
 
 
 class SubCatalog(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, verbose_name='Название Подкатегории')
 
     def __str__(self):
         return self.name
@@ -25,7 +26,7 @@ class SubCatalog(models.Model):
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, verbose_name='Название бренда')
 
     def __str__(self):
         return self.name
@@ -48,13 +49,13 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание')
     color = models.CharField(max_length=50, verbose_name='Цвет')
     image1 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               upload_to='media', verbose_name='Фотография 1 (обязательно)')
+                               verbose_name='Фотография 1 (обязательно)')
     image2 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               upload_to='media', verbose_name='Фотография 2 (не обязательно)', null=True, blank=True)
+                               verbose_name='Фотография 2 (не обязательно)', null=True, blank=True)
     image3 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               upload_to='media', verbose_name='Фотография 3 (не обязательно)', null=True, blank=True)
+                               verbose_name='Фотография 3 (не обязательно)', null=True, blank=True)
     image4 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               upload_to='media', verbose_name='Фотография 4 (не обязательно)', null=True, blank=True)
+                               verbose_name='Фотография 4 (не обязательно)', null=True, blank=True)
     information = models.TextField(verbose_name='Дополнительная информация(размер)')
     price = models.FloatField(verbose_name='Цена')
 
@@ -76,3 +77,7 @@ class Product(models.Model):
     @property
     def sub_catalog_name(self):
         return self.sub_catalog.name
+
+    @property
+    def catalog_image(self):
+        return self.catalog.image

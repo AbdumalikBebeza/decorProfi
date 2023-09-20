@@ -21,12 +21,15 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_sub_catalog_name(self, product):
         return product.sub_catalog_name
 
+    def get_image_catalog(self, product):
+        return product.catalog.image
 
-    # def to_representation(self, instance):
-    #     data = super().to_representation(instance)
-    #     request = self.context.get("request")
-    #     data['image1'] = request.build_absolute_uri(instance.image1)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+        data['catalog_image'] = request.build_absolute_uri(instance.catalog.image).replace("api/v1/products", "media")
     #     data['image2'] = request.build_absolute_uri(instance.image2)
     #     data['image3'] = request.build_absolute_uri(instance.image3)
     #     data['image4'] = request.build_absolute_uri(instance.image4)
-    #     return data
+        return data
