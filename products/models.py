@@ -48,14 +48,10 @@ class Product(models.Model):
                               verbose_name='Бренд продукта')
     description = models.TextField(verbose_name='Описание')
     color = models.CharField(max_length=50, verbose_name='Цвет')
-    image1 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               verbose_name='Фотография 1 (обязательно)')
-    image2 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               verbose_name='Фотография 2 (не обязательно)', null=True, blank=True)
-    image3 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               verbose_name='Фотография 3 (не обязательно)', null=True, blank=True)
-    image4 = ResizedImageField(size=[600, 600], force_format='PNG', crop=['middle', 'center'], quality=100,
-                               verbose_name='Фотография 4 (не обязательно)', null=True, blank=True)
+    image1 = models.ImageField(verbose_name='Фотография 1 (обязательно)')
+    image2 = models.ImageField(verbose_name='Фотография 2 (необязательно)', null=True, blank=True)
+    image3 = models.ImageField(verbose_name='Фотография 3 (необязательно)', null=True, blank=True)
+    image4 = models.ImageField(verbose_name='Фотография 4 (необязательно)', null=True, blank=True)
     information = models.TextField(verbose_name='Дополнительная информация(размер)')
     price = models.FloatField(verbose_name='Цена')
 
